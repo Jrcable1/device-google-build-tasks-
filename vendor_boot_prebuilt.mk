@@ -10,8 +10,20 @@
 
 ifdef INSTALLED_VENDOR_BOOTIMAGE_TARGET
 
-$(INSTALLED_VENDOR_BOOTIMAGE_TARGET): device/google/OrangeFox/Fox.img
-	@echo "vendor_boot: using prebuilt device/google/OrangeFox/Fox.img"
-	$(hide) cp device/google/OrangeFox/Fox.img $@
+ifeq ($(TARGET_DEVICE),husky)
+FOX_VENDOR_BOOT := device/google/OrangeFox/zuma.img
+endif
+
+ifeq ($(TARGET_DEVICE),shiba)
+FOX_VENDOR_BOOT := device/google/OrangeFox/zuma.img
+endif
+
+ifeq ($(TARGET_DEVICE),tangorpro)
+FOX_VENDOR_BOOT := device/google/OrangeFox/tangorpro.img
+endif
+
+$(INSTALLED_VENDOR_BOOTIMAGE_TARGET): $(FOX_VENDOR_BOOT)
+	@echo "vendor_boot: using prebuilt $(FOX_VENDOR_BOOT)"
+	$(hide) cp $(FOX_VENDOR_BOOT) $@
 
 endif
